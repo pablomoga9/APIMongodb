@@ -11,6 +11,7 @@ const whale = require('cowsay2/cows/whale');
 const productsRoutes = require('./routes/productsRoutes');
 const productsApiRoutes = require('./routes/productsApiRoutes');
 const entriesApiRoutes = require('./routes/entriesApiRoutes');
+const providersApiRoutes = require('./routes/providersApiRoutes')
 
 // Tu propio módulo
 //const calc = require('./utils/calculator.js');
@@ -42,6 +43,7 @@ app.use("/products",productsRoutes);
 // API
 app.use("/api/products",productsApiRoutes);
 app.use("/api/entries",entriesApiRoutes);
+app.use("/api/providers",providersApiRoutes)
 /*
 WEB
 http://localhost:3000/products GET
