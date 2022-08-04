@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require('./providers')
 const objectSchema = {
     id: { 
         type: Number, 
@@ -18,10 +18,16 @@ const objectSchema = {
         type: String, 
         required: true 
     },
-   providers:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Provider'
-    }
+    image:{
+        type: String,
+        validate: {
+            validator: function(url){
+                return url.indexOf('.jpg') != -1;
+            }, 
+            message: "Porfa, sólo imágenes JPG"
+        }
+    },
+    provider:{type: mongoose.Schema.Types.ObjectId, ref: 'Provider'} //referencia en mayuscula y singular de la colección a relacionar
 };
 // Crear el esquema
 const productSchema = mongoose.Schema(objectSchema);
@@ -29,16 +35,3 @@ const productSchema = mongoose.Schema(objectSchema);
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;
-
-/*
-// Insertar un producto
-const p = new Product({
-    id: 2,
-    title: "Tortilla",
-    price: 1.80,
-    description: "Tortilla jugosa del teatro",
-    image:"https://www.recetasderechupete.com/wp-content/uploads/2020/11/Tortilla-de-patatas-4-768x530.png"
-});
-
-p.save().then((data)=>console.log(data));
-*/

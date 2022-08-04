@@ -15,17 +15,8 @@ const objectSchema = {
     },
     url_web:{
         type: String,
-        validate: {
-            validator: function(url){
-                if(url.indexOf('.com') != -1 || url.indexOf('.es') != -1 || url.indexOf('.org') != -1)
-                    return true;
-                else {
-                    return false;
-                }
-            }, 
-            message: "Solo se admiten url con '.com', '.es' o '.org'"
-        }
-    }
+        required: true
+       }
    
 };
 

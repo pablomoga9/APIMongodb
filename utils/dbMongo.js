@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//const DATABASE_URL = "mongodb://localhost:27017/fakeshop";
+// const DATABASE_URL = "mongodb://localhost:27017/fakeshop";
 mongoose.connect("mongodb://localhost:27017/fakeshop", { useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 

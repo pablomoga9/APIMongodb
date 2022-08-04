@@ -1,23 +1,28 @@
 const Product = require('../models/products'); 
 
+
 const getProducts = async (req, res) => {
     if (req.params.id) { 
         try {
-            let product =  await Product.find().populate('providers', 'company_name').select('title providers');
-            res.status(200).json(product); 
+            let product =  await Product.findOne({id:req.params.id},'title price id -_id')
+            
+            res.status(200).json(product);
         }
         catch (error) {
-            console.log(`ERROR: ${error.stack}`);
-            res.status(404).json({"message":"producto no encontrado"});
+            console.log(`ERROR: ${error.stack}`)
+            res.status(404).json({"message": "producto no encontrado"});
         }
-    } else { // FIND ALL
+    } else { 
         try {
-            let products = await Product.find({},'-_id -__v').sort('-id'); //[]
+            let products =  await Product.find({}, '-_id -__v')
+            .populate('provider', 'company_name cif address -_id') //selector en singular de la coleccion que quieres relacionar,
+            //luego la/s clave/s que quieres que traiga
             res.status(200).json({products});
         }
         catch (error) {
-            console.log(`ERROR: ${error.stack}`);
-            res.status(404).json({"message":"productos no encontrados"});
+            console.log(`ERROR: ${error.stack}`)
+            let products = []
+            res.status(404).json(error);
         }
     }
 }
